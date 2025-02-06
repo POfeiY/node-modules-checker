@@ -1,0 +1,61 @@
+{
+  "name": "node-modules-tools",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "author": "Zili Yu <yuzili4109@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/POfeiY/node-modules-checker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/POfeiY/node-modules-checker.git"
+  },
+  "bugs": "https://github.com/POfeiY/node-modules-checker/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "prepublishOnly": "nr build",
+    "start": "tsx src/index.ts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "p-limit": "catalog:",
+    "package-manager-detector": "catalog:",
+    "pathe": "catalog:",
+    "tinyexec": "catalog:"
+  },
+  "devDependencies": {
+    "@pnpm/list": "catalog:",
+    "@pnpm/types": "catalog:",
+    "@types/stream-json": "catalog:",
+    "pkg-types": "catalog:",
+    "stream-json": "catalog:",
+    "unbuild": "catalog:"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}

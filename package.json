@@ -1,0 +1,88 @@
+{
+  "name": "node-modules-checker",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "author": "Zili Yu <yuzili4109@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/POfeiY/node-modules-checker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/POfeiY/node-modules-checker.git"
+  },
+  "bugs": "https://github.com/POfeiY/node-modules-checker/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.mjs"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "release": "bumpp && pnpm publish",
+    "start": "tsx src/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@antfu/utils": "^8.1.0",
+    "@iconify-json/carbon": "catalog:",
+    "@iconify-json/catppuccin": "catalog:",
+    "@iconify-json/logos": "catalog:",
+    "@iconify-json/ph": "catalog:",
+    "@iconify-json/ri": "catalog:",
+    "@iconify-json/simple-icons": "catalog:",
+    "@nuxt/eslint": "catalog:",
+    "@rollup/plugin-alias": "catalog:",
+    "@rollup/plugin-commonjs": "catalog:",
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@shikijs/langs-precompiled": "catalog:",
+    "@shikijs/transformers": "catalog:",
+    "@types/connect": "catalog:",
+    "@types/d3": "catalog:",
+    "@types/d3-hierarchy": "catalog:",
+    "@types/ws": "catalog:",
+    "@typescript-eslint/utils": "catalog:",
+    "@unocss/eslint-config": "catalog:",
+    "@webcontainer/api": "catalog:",
+    "bumpp": "catalog:",
+    "chalk": "catalog:",
+    "eslint": "catalog:",
+    "lint-staged": "catalog:",
+    "nuxt": "catalog:",
+    "nuxt-eslint-auto-explicit-import": "catalog:",
+    "rollup": "catalog:",
+    "rollup-plugin-esbuild": "catalog:",
+    "simple-git-hooks": "catalog:",
+    "theme-vitesse": "catalog:",
+    "typescript": "catalog:",
+    "unbuild": "catalog:",
+    "vitest": "catalog:",
+    "vue-tsc": "catalog:"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
