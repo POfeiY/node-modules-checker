@@ -1,6 +1,6 @@
 export interface PackageInstallSizeInfo {
   bytes: number
-  categories: Partial<Record<FileCategory, { byte: number, count: number }>>
+  categories: Partial<Record<FileCategory, { bytes: number, count: number }>>
 }
 
 export type FileCategory =
