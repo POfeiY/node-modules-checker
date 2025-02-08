@@ -5,6 +5,7 @@
  * - Set `module` to the resolved module type (cjs, esm, dual, faux, none).
  */
 
+import type { AgentName } from 'package-manager-detector'
 import type { PackageJson } from 'pkg-types'
 import type { BaseOptions, PackageNode, PackageNodeBase } from './types'
 
@@ -14,7 +15,7 @@ import { analyzePackageModuleType } from './analyze-esm'
 import { getPackagesInstallSize } from './size'
 import { stripBomTag } from './utils'
 
-export async function resolvePackage(_packageManager: string, pkg: PackageNodeBase, _options: BaseOptions): Promise<PackageNode> {
+export async function resolvePackage(_packageManager: AgentName, pkg: PackageNodeBase, _options: BaseOptions): Promise<PackageNode> {
   const _pkg = pkg as unknown as PackageNode
   if (_pkg.resolved)
     return _pkg
