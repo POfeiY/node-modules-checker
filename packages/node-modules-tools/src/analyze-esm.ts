@@ -56,7 +56,7 @@ export function analyzePackageModuleType(pkgJson: PackageJson): PackageModuleTyp
         const values = /** @type {Array<unknow>} */ (value)
         let index = -1
         while (++index < values.length) {
-          analyzeThing(values, `${path}[${index}]`)
+          analyzeThing(values[index], `${path}[${index}]`)
         }
       }
       else {

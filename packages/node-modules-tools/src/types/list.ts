@@ -29,6 +29,6 @@ export interface ListPackageDependenciesBaseResult extends ListPackageDependenci
   packages: Map<string, PackageNodeBase>
 }
 
-export interface LIstPackageDependenciesResult extends ListPackageDependenciesBaseResult {
+export interface ListPackageDependenciesResult extends ListPackageDependenciesBaseResult {
   packages: Map<string, PackageNode>
 }

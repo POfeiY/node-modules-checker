@@ -38,7 +38,7 @@
     "prepublishOnly": "nr build",
     "release": "bumpp && pnpm publish",
     "start": "tsx src/index.ts",
-    "test": "vitest",
+    "test": "vitest -u",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },

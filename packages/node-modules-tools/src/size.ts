@@ -10,7 +10,7 @@ export async function getPackagesInstallSize(pkg: PackageNodeRaw): Promise<Packa
   if (pkg.version.match(/^(?:file|link|workspace):/))
     return
 
-  const root = pkg.filePath
+  const root = pkg.filepath
   const files: string[] = []
 
   await traverse(root)
@@ -32,7 +32,7 @@ export async function getPackagesInstallSize(pkg: PackageNodeRaw): Promise<Packa
     bytes,
     categories,
   }
-  /* eslint-disable ts/explicit-function-return-type */
+
   async function traverse(dir: string) {
     for (const n of await fse.readdir(dir, { withFileTypes: true })) {
       if (n.isFile()) {
