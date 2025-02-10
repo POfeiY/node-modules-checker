@@ -41,7 +41,7 @@ export async function getPackagesInstallSize(pkg: PackageNodeRaw): Promise<Packa
       else if (n.isDirectory()) {
         if (n.name.match(/^\.|^node_modules$/))
           continue
-        traverse(join(dir, n.name))
+        await traverse(join(dir, n.name))
       }
     }
   }

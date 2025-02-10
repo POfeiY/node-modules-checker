@@ -115,7 +115,7 @@ it('get package list', async () => {
       },
       "depth": Infinity,
       "dev": true,
-      "filepath": "/Users/mac/develop/web/node-modules-checker/node_modules/.pnpm/debug@4.4.0_supports-color@9.4.0/node_modules/debug",
+      "filepath": "D:\\CIB\\node-modules-checker\\node_modules\\.pnpm\\debug@4.4.0_supports-color@9.4.0\\node_modules\\debug",
       "flatDependencies": Set {
         "@babel/core@7.26.7",
         "ms@2.1.3",
@@ -373,11 +373,15 @@ it('get package list', async () => {
         },
         "homepage": undefined,
         "installSize": {
-          "bytes": NaN,
+          "bytes": 42798,
           "categories": {
             "doc": {
               "bytes": 22115,
               "count": 1,
+            },
+            "js": {
+              "bytes": 18020,
+              "count": 4,
             },
             "json": {
               "bytes": 1524,
@@ -386,10 +390,6 @@ it('get package list', async () => {
             "other": {
               "bytes": 1139,
               "count": 1,
-            },
-            "undefined": {
-              "bytes": NaN,
-              "count": 4,
             },
           },
         },
