@@ -19,7 +19,7 @@ export interface PackageNodeRaw {
   /**
    * Absolute file path of the package
    */
-  filePath: string
+  filepath: string
   /**
    * Direct dependencies of this packages
    */

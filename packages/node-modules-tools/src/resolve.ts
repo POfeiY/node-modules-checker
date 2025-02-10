@@ -20,7 +20,7 @@ export async function resolvePackage(_packageManager: AgentName, pkg: PackageNod
   if (_pkg.resolved)
     return _pkg
 
-  const content = await fse.readFile(join(pkg.filePath, 'package.json'), 'utf-8')
+  const content = await fse.readFile(join(pkg.filepath, 'package.json'), 'utf-8')
   const json = JSON.parse(stripBomTag(content)) as PackageJson
 
   let repository = typeof json.repository === 'string' ? json.repository : json.repository?.url
