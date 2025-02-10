@@ -51,7 +51,7 @@ export interface PackageNodeBase extends PackageNodeRaw {
   /**
    * Direct dependents of this package
    */
-  dependencies: Set<string>
+  dependents: Set<string>
   /**
    * The lowest depth of this package
    */
