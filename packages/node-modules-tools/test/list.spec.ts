@@ -115,7 +115,7 @@ it('get package list', async () => {
       },
       "depth": Infinity,
       "dev": true,
-      "filepath": "D:\\CIB\\node-modules-checker\\node_modules\\.pnpm\\debug@4.4.0_supports-color@9.4.0\\node_modules\\debug",
+      "filepath": "/Users/mac/develop/web/node-modules-checker/node_modules/.pnpm/debug@4.4.0_supports-color@9.4.0/node_modules/debug",
       "flatDependencies": Set {
         "@babel/core@7.26.7",
         "ms@2.1.3",
