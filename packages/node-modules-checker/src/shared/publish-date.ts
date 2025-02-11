@@ -2,13 +2,13 @@ import type { Storage } from 'unstorage'
 import { getLatestVersionBatch } from 'fast-npm-meta'
 import plimit from 'p-limit'
 
-export interface ListPackagePublishDatasOptions {
+export interface ListPackagePublishDatesOptions {
   storage: Storage<string>
 }
 
-export async function getPublishDate(
+export async function getPackagesPublishDate(
   packages: string[],
-  options: ListPackagePublishDatasOptions,
+  options: ListPackagePublishDatesOptions,
 ) {
   const { storage } = options
 
@@ -42,4 +42,14 @@ export async function getPublishDate(
   }
 
   await Promise.all(promises)
+
+  await Promise.all(packages.map(async (p) => {
+    if (!map.has(p)) {
+      const date = await storage.getItem(p)
+      if (date)
+        map.set(p, date)
+    }
+  }))
+
+  return map
 }

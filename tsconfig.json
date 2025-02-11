@@ -1,15 +1,8 @@
 {
+  "extends": "./packages/node-modules-checker/src/.nuxt/tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "module": "ESNext",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true
+    "noEmit": true
   }
 }
