@@ -2,7 +2,14 @@ import type { ListPackageDependenciesResult, PackageNodeRaw } from 'node-modules
 
 import type { FilterOptions } from './filters'
 
+export interface NodeModulesInspectorPayload extends ListPackageDependenciesResult {
+  timestamp: number
+  hash: string
+  config?: NodeModulesInspectorConfig
+}
+
 export interface ServerFunctions {
+  // getPayload: (force?: boolean) => Promise<NodeModulesInspectorPayload>
   listDependencies: () => Promise<ListPackageDependenciesResult>
   getPackagesPublishDate: (deps: string[]) => Promise<Map<string, string>>
   openInEditor: (filename: string) => void
@@ -10,6 +17,16 @@ export interface ServerFunctions {
 }
 
 export interface NodeModulesInspectorConfig {
+  /**
+   * The name of the package
+   */
+  name?: string
+  /**
+   * Fetch publish date of the packages
+   *
+   * @default true
+   */
+  fetchPublishDate?: boolean
   /**
    * Exclude the packages and it's dependencies
    */

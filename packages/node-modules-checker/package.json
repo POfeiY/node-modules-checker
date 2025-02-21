@@ -42,10 +42,12 @@
     "mlly": "catalog:",
     "mrmime": "catalog:",
     "node-modules-tools": "workspace:*",
+    "ohash": "catalog:",
     "open": "catalog:",
     "pathe": "catalog:",
     "picocolors": "catalog:",
     "structured-clone-es": "catalog:",
+    "unconfig": "catalog:",
     "unstorage": "catalog:",
     "ws": "catalog:"
   },
