@@ -1,13 +1,13 @@
 import type { NodeModulesInspectorConfig, ServerFunctions } from '#shared/types'
 import type { ListPackageDependenciesOptions } from 'node-modules-tools'
-import type { ListPackagePublishDatesOptions } from '../shared/publish-date'
+import type { ListPackagePublishDatesOptions } from '../shared/publish-dates'
 import process from 'node:process'
 
 import { constructPackageFilters, listPackageDependencies } from 'node-modules-tools'
 import { hash as getHash } from 'ohash'
 import { loadConfig } from 'unconfig'
 
-import { getPackagesPublishDate as _getPackagesPublishDate } from '../shared/publish-date'
+import { getPackagesPublishDate as _getPackagesPublishDate } from '../shared/publish-dates'
 
 export interface CreateServerFunctionsOptions extends Partial<ListPackageDependenciesOptions>, ListPackagePublishDatesOptions {
   mode: 'dev' | 'build'
@@ -22,7 +22,7 @@ export function createServerFunctions(options: CreateServerFunctionsOptions): Se
       const result = await loadConfig<NodeModulesInspectorConfig>({
         cwd: options.cwd,
         sources: [
-          { files: 'node-module-inspector.config' },
+          { files: 'node-modules-inspector.config' },
         ],
         defaults: {
           fetchPublishDate: false,
