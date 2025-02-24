@@ -9,8 +9,7 @@ export interface NodeModulesInspectorPayload extends ListPackageDependenciesResu
 }
 
 export interface ServerFunctions {
-  // getPayload: (force?: boolean) => Promise<NodeModulesInspectorPayload>
-  listDependencies: () => Promise<ListPackageDependenciesResult>
+  getPayload: (force?: boolean) => Promise<NodeModulesInspectorPayload>
   getPackagesPublishDate: (deps: string[]) => Promise<Map<string, string>>
   openInEditor: (filename: string) => void
   openInFinder: (filename: string) => void

@@ -16,6 +16,14 @@ export interface ListPackageDependenciesOptions extends BaseOptions {
    * @returns
    */
   traverseFilter?: (node: PackageNodeRaw) => boolean
+  /**
+   * Filter if workspace should be reconized
+   */
+  workspace?: boolean
+  /**
+   * Filter whether a packages's dependencies should be included
+   */
+  dependenciesFilter?: (node: PackageNodeRaw) => boolean
 }
 
 export interface ListPackageDependenciesRawResult {

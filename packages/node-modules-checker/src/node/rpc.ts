@@ -3,8 +3,10 @@ import type { ListPackageDependenciesOptions } from 'node-modules-tools'
 import type { ListPackagePublishDatesOptions } from '../shared/publish-date'
 import process from 'node:process'
 
-import { listPackageDependencies } from 'node-modules-tools'
+import { constructPackageFilters, listPackageDependencies } from 'node-modules-tools'
+import { hash as getHash } from 'ohash'
 import { loadConfig } from 'unconfig'
+
 import { getPackagesPublishDate as _getPackagesPublishDate } from '../shared/publish-date'
 
 export interface CreateServerFunctionsOptions extends Partial<ListPackageDependenciesOptions>, ListPackagePublishDatesOptions {
@@ -27,10 +29,10 @@ export function createServerFunctions(options: CreateServerFunctionsOptions): Se
         },
         merge: true,
       })
-      // if (result.sources.length)
-      //   console.log(`[Node Modules Checker] Config loaded from ${result.sources.join(', ')}`)
-      // else
-      //   console.log(`[Node Modules Checker] No config found`)
+      if (result.sources.length)
+        console.log(`[Node Modules Checker] Config loaded from ${result.sources.join(', ')}`)
+      else
+        console.log(`[Node Modules Checker] No config found`)
       return result.config
     })()
     return _config
@@ -44,18 +46,49 @@ export function createServerFunctions(options: CreateServerFunctionsOptions): Se
   }
 
   return {
-    // async getPayload(force?: boolean) {
-    //   const config = await getConfig(force)
-    //   // const excludeFilter = constructPackageFilters(config.excludePackages || [], 'some')
-    // },
-    async listDependencies() {
-      // console.log('[Node Modules Checker] Reading dependencies...')
-      return listPackageDependencies({
+    async getPayload(force?: boolean) {
+      const config = await getConfig(force)
+      const excludeFilter = constructPackageFilters(config.excludePackages || [], 'some')
+      const depsFilter = constructPackageFilters(config.excludeDependenciesOf || [], 'some')
+      console.log('[Node Modules Checker] Reading dependencies...')
+      const result = await listPackageDependencies({
         cwd: process.cwd(),
         depth: 25,
         monorepo: true,
         ...options,
+        traverseFilter(node) {
+          return !excludeFilter(node)
+        },
+        dependenciesFilter(node) {
+          return !depsFilter(node)
+        },
       })
+
+      const hash = getHash([...result.packages.keys()].sort())
+
+      if (options.mode === 'build' && config.fetchPublishDate) {
+        try {
+          await getPackagesPublishDate(Array.from(result.packages.keys()))
+        }
+        catch (error) {
+          console.error('[Node Modules Checker] fail to fetch publish dates')
+          console.error(error)
+        }
+      }
+
+      await Promise.all(Array.from(result.packages.values())
+        .map(async (pkg) => {
+          const time = await options.storagePublishDates.getItem(pkg.spec)
+          if (time)
+            pkg.resolved.publishTime = time
+        }))
+
+      return {
+        hash,
+        timestamp: Date.now(),
+        ...result,
+        config,
+      }
     },
     getPackagesPublishDate,
     async openInEditor(filename: string) {

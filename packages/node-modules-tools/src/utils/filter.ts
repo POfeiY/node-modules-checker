@@ -25,7 +25,7 @@ export function constructPackageFilter(range: string): (pkg: PackageNodeLike) =>
 }
 
 export function constructPackageFilters<Node extends PackageNodeLike = PackageNodeLike>(
-  ranges: string[],
+  ranges: (string | ((pkg: Node) => boolean))[],
   mode: 'some' | 'every',
 ): (pkg: Node) => boolean {
   const filters = ranges.map(x => typeof x === 'string' ? constructPackageFilter(x) : x)
