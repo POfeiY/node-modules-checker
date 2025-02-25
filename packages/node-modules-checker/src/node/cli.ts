@@ -5,9 +5,13 @@ import process from 'node:process'
 
 import cac from 'cac'
 import fg from 'fast-glob'
+import { getPort } from 'get-port-please'
+import open from 'open'
 import { relative, resolve } from 'pathe'
+import c from 'picocolors'
 import { distDir } from '../dirs'
 import { MARK_CHECK, MARK_INFO } from './contants'
+import { createHostServer } from './server'
 import { storagePublishDates } from './storage'
 
 const cli = cac('node-modules-checker')
@@ -68,4 +72,35 @@ cli
     await fse.writeFile(resolve(outDir, 'api/rpc-dump.json'), JSON.stringify(rpcDump, null, 2), 'utf-8')
 
     console.log(MARK_CHECK, `Built to ${relative(cwd, outDir)}`)
+    console.log(MARK_INFO, `You can use static server like \`npx server ${relative(cwd, outDir)}\` to serve the checker `)
   })
+
+cli
+  .command('', 'Start dev checker')
+  .option('--root <root>', 'Root directory', { default: process.cwd() })
+  .option('--depth <depth>', 'Max depth to list dependencies', { default: 25 })
+  // Dev specific options
+  .option('--host <host>', 'Host', { default: process.env.HOST || '127.0.0.1' })
+  .option('--port <port>', 'Port', { default: process.env.PORT || 9999 })
+  .option('--open', 'Open browser', { default: true })
+  .action(async (options) => {
+    const host = options.host
+    const port = await getPort({ port: options.port, portRange: [9999, 15000], host })
+
+    console.log(MARK_INFO, `Starting Node Modules Checker at`, c.green(`http://${host === '127.0.0.1' ? 'localhost' : host}:${port}`), '\n')
+
+    const server = await createHostServer({
+      cwd: options.root,
+      depth: options.depth,
+      storagePublishDates,
+      mode: 'dev',
+    })
+
+    server.listen(port, host, async () => {
+      if (options.open)
+        await open(`http:${host === '127.0.0.1' ? 'localhost' : host}:${port}`)
+    })
+  })
+
+cli.help()
+cli.parse()
